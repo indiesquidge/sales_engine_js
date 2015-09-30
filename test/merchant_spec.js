@@ -13,7 +13,7 @@ describe('SalesEngine Merchants', function() {
         var merchantTwo = merchantRepo.random();
 
         for (var i = 0; i <= 5; i++) {
-          if (merchantOne.id === merchantTwo.id) {
+          if (merchantOne.id !== merchantTwo.id) {
             break;
           }
           merchantTwo = merchantRepo.random();
