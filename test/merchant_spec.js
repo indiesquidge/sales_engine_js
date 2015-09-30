@@ -22,11 +22,21 @@ describe('SalesEngine Merchants', function() {
         expect(merchantOne.id).to.not.equal(merchantTwo.id);
       });
     });
+
     describe('.findByName', function () {
       it('can find a record', function () {
         var merchant = engine.merchantRepository().findByName('Marvin Group');
 
         expect(merchant.name).to.equal('Marvin Group');
+      });
+    });
+
+    describe('.findAllByName', function () {
+      it('can find multiple records', function () {
+        var merchantRepo = engine.merchantRepository();
+        var merchants = merchantRepo.findAllByName('Williamson Group');
+
+        expect(merchants.length).to.equal(2);
       });
     });
   });
