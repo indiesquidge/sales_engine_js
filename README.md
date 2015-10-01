@@ -79,3 +79,19 @@ MerchantRepository.prototype.findByName = function (name) {
 
 We get the best of both worlds here because it works (important!), and we stop
 return out of our loop as soon as we find a match.
+
+**UPDATE**:
+
+After talking with [Steve](https://github.com/stevekinney/) about this, he
+pointed out that the reason `forEach` is returning `undefined` is because
+`forEach` "throws away" the array it makes after iterating, unlike something
+such as `map`, which iterates over the array you call it on, applies the
+callback function you pass it, and then returns the new array with the applied
+changes. More specifically, the [documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+says
+
+> _forEach() executes the callback function once for each array element; unlike
+map() or reduce() it **always returns the value undefined** and is not chainable.
+The typical use case is to execute side effects at the end of a chain._
+
+So there's that. I guess the moral of the story is read the docs ;)
