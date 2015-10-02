@@ -16,7 +16,7 @@ avoid as many third-party libraries as possible.
 #### Parsing a CSV file into a JSON collection
 coming soon...
 
-#### Returning `undefined` when using `forEach`
+#### Finding ways to write `findByX` methods
 
 ###### Attempt #1
 
@@ -74,7 +74,7 @@ we had a larger collection, this would get very slow very quickly.
 
 ###### Attempt #3
 
-My final solution was to use a simple `for` loop.
+My third attempt was to use a simple `for` loop.
 
 ```javascript
 MerchantRepository.prototype.findByName = function (name) {
@@ -106,6 +106,34 @@ map() or reduce() it **always returns the value undefined** and is not chainable
 The typical use case is to execute side effects at the end of a chain._
 
 So there's that. I guess the moral of the story is read the docs ;)
+
+**UPDATE**:
+
+#### Final Solution
+
+Looking for one item seemed tricky at first, and it wasn't until I implemented
+`findAllByName` that I realized how similar these methods could really be.
+
+```javascript
+MerchantRepository.prototype.findAllByName = function (name) {
+  return this.all.filter(function (merchant) {
+    return merchant.name.toLowerCase() === name.toLowerCase();
+  });
+};
+```
+
+JavaScript's `filter` function allows for very easy way to query a collection.
+It creates a new array with all elements that pass the conditional implemented
+by the function you give it. This makes `findByName` all the easier to create;
+just grab the first element from `findAllByName`'s array.
+
+```javascript
+MerchantRepository.prototype.findByName = function (name) {
+  return this.findAllByName(name)[0];
+};
+```
+
+Done and done.
 
 #### Testing equality for `BigDecimal` object
 
