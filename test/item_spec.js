@@ -32,23 +32,29 @@ describe('SalesEngine Items', function () {
     });
 
     describe('.findAllByStatus', function () {
-      var items = engine.itemRepository().findAllByName('Item Eos Et');
+      it('can find multiple records', function () {
+        var items = engine.itemRepository().findAllByName('Item Eos Et');
 
-      expect(items.length).to.equal(3);
+        expect(items.length).to.equal(3);
+      });
     });
 
     describe('.findByFuzzyDescription', function () {
-      var itemRepo = engine.itemRepository();
-      var item = itemRepo.findByFuzzyDescription('Debitis et nobis');
+      it('can find one based on a fuzzy description query', function () {
+        var itemRepo = engine.itemRepository();
+        var item = itemRepo.findByFuzzyDescription('Debitis et nobis');
 
-      expect(item.name).to.equal('Item Blanditiis Soluta');
+        expect(item.name).to.equal('Item Blanditiis Soluta');
+      });
     });
 
     describe('.findByAllFuzzyDescription', function () {
-      var itemRepo = engine.itemRepository();
-      var items = itemRepo.findAllByFuzzyDescription('Aut error');
+      it('can find many based on a fuzzy description query', function () {
+        var itemRepo = engine.itemRepository();
+        var items = itemRepo.findAllByFuzzyDescription('Aut error');
 
-      expect(items.length).to.equal(6);
+        expect(items.length).to.equal(6);
+      });
     });
   });
 });

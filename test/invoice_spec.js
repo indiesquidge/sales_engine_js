@@ -32,9 +32,11 @@ describe('SalesEngine Invoices', function () {
     });
 
     describe('.findAllByStatus', function () {
-      var invoices = engine.invoiceRepository().findAllByStatus('shipped');
+      it('can find multiple records', function () {
+        var invoices = engine.invoiceRepository().findAllByStatus('shipped');
 
-      expect(invoices.length).to.equal(4843);
+        expect(invoices.length).to.equal(4843);
+      });
     });
   });
 });
