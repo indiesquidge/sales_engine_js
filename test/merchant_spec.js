@@ -23,6 +23,14 @@ describe('SalesEngine Merchants', function() {
       });
     });
 
+    describe('.find', function () {
+      it('can find a record by id', function () {
+        var merchant = engine.merchantRepository().find(29);
+
+        expect(merchant.name).to.equal('Tromp Inc');
+      });
+    });
+
     describe('.findByName', function () {
       it('can find a record', function () {
         var merchant = engine.merchantRepository().findByName('Marvin Group');
