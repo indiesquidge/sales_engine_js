@@ -1,8 +1,6 @@
 var chai = require('chai'),
     expect = chai.expect;
 
-var BigDecimal = require('big.js');
-
 var SalesEngine = require('../lib/sales_engine.js');
 var engine = new SalesEngine();
 
@@ -27,7 +25,7 @@ describe('SalesEngine Items', function () {
 
     describe('.findByUnitPrice', function () {
       it('can find a record', function () {
-        var item = engine.itemRepository().findByUnitPrice(new BigDecimal('935.19'));
+        var item = engine.itemRepository().findByUnitPrice('935.19');
 
         expect(item.name).to.equal('Item Alias Nihil');
       });
