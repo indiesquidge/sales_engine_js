@@ -48,7 +48,7 @@ describe('SalesEngine Items', function () {
       var itemRepo = engine.itemRepository();
       var items = itemRepo.findAllByFuzzyDescription('Aut error');
 
-      expect(items.length).to.equal(2);
+      expect(items.length).to.equal(6);
     });
   });
 });
