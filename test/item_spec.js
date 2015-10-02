@@ -38,5 +38,19 @@ describe('SalesEngine Items', function () {
 
       expect(items.length).to.equal(3);
     });
+
+    describe('.findByFuzzyDescription', function () {
+      var itemRepo = engine.itemRepository();
+      var item = itemRepo.findByFuzzyDescription('Debitis et nobis');
+
+      expect(item.name).to.equal('Item Blanditiis Soluta');
+    });
+
+    describe('.findByAllFuzzyDescription', function () {
+      var itemRepo = engine.itemRepository();
+      var items = itemRepo.findAllByFuzzyDescription('Aut error');
+
+      expect(items.length).to.equal(2);
+    });
   });
 });
