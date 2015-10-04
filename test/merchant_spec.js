@@ -48,4 +48,14 @@ describe('SalesEngine Merchants', function() {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var merchant = engine.merchantRepository().findByName('Kirlin, Jakubowski and Smitham');
+
+    describe('#items', function () {
+      it('has the correct number of them', function () {
+        expect(merchant.items().length).to.equal(33);
+      });
+    });
+  });
 });
