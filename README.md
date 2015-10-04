@@ -256,3 +256,63 @@ third-party library because 1) both underscorejs and lodash are widely used and
 accepted, and 2) I have spent a sufficient amount of time to understand the pain
 points of dealing with object equality and be able to use a good solution
 someone else has provided.
+
+#### Dealing with bindings
+
+This is the first _truly_ tricky part of Sales Engine. The relationships
+portion is where the project looks at your ability to wire the repositories
+together (i.e. find all of a customer's invoices) while maintaining basic Object
+Oriented principles of managing dependencies. You don't want all repositories to
+know about each other; the reason we created `SalesEngine` was to be the only
+object that knows about all of the repositories.
+
+The easiest way to accomplish this is to create our objects with a hierarchy in
+mind. The lowest level will be the instances, like `merchants` and `invoices`
+and all that. Those will have a "parent" in which they know about, which in this
+case would be that instance's correlating repository.
+
+```javascript
+function Merchant(data, parent) {
+...
+}
+```
+
+And each repository would also have a "parent", being `SalesEngine`. This
+structure keeps the instances and repositories from knowing too much.
+
+In Ruby, this is fairly easy to accomplish. You just pass in `self` as a
+parameter upon the creation of each object. JavaScript is similar, but it seems
+to be a bit easier to lose track of what current binding you're in. I ran into
+trouble with that when creating `Merchant` instances inside of the
+`MerchantRepository` object. The current structure of `createMerchants` is this
+
+```javascript
+MerchantRepository.prototype.createMerchants = function (file) {
+  var merchantList = new Parser().parse(file);
+
+  this.all = merchantList.map(function (merchant) {
+    return new Merchant(merchant);
+  });
+};
+```
+
+Here, we cannot simply just pass in `this` when we call `new Merchant()` because
+we are inside of a callback function that was passed to `map`. Instead, we must
+save the binding we want to a variable and use that.
+
+```javascript
+MerchantRepository.prototype.createMerchants = function (file) {
+  var merchantList = new Parser().parse(file);
+  var that = this;
+
+  this.all = merchantList.map(function (merchant) {
+    return new Merchant(merchant, that);
+  });
+};
+```
+
+Now I finally understand why I see `var that = this` all over the place. Some
+may argue doing this is bad practice, or should have a different name, etc. At
+this point in my learning career, finding these nuances and seeing _why_ they
+are used is a primary goal; I can always make things more practical down the
+road.
