@@ -39,4 +39,14 @@ describe('SalesEngine Invoices', function () {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var invoice = engine.invoiceRepository().find(1002);
+
+    describe('#transactions', function () {
+      it('has the correct number of them', function () {
+        expect(invoice.transactions().length).to.equal(1);
+      });
+    });
+  });
 });
