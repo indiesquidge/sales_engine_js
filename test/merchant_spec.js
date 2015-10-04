@@ -56,6 +56,26 @@ describe('SalesEngine Merchants', function() {
       it('has the correct number of them', function () {
         expect(merchant.items().length).to.equal(33);
       });
+
+      it('includes a known item', function () {
+        expect(merchant.items().map(function (item) {
+          return item.name;
+        })).to.include('Item Consequatur Odit');
+      });
+    });
+
+    describe('#invoices', function () {
+      it('has the correct number of them', function () {
+        expect(merchant.invoices().length).to.equal(43);
+      });
+
+      it.skip('has a shipped invoice for a specific customer', function () {
+        var invoice = merchant.invoices().filter(function (invoice) {
+          return invoice.customer.lastName === 'Block';
+        });
+
+        expect(invoice.status).to.equal('shipped');
+      });
     });
   });
 });
