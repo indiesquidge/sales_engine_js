@@ -6,6 +6,29 @@ re-create it in JavaScript.
 
 [Original Overview](http://tutorials.jumpstartlab.com/projects/sales_engine.html)
 
+## Getting Started
+
+Clone
+```sh
+git clone https://github.com/indiesquidge/sales_engine_js.git
+cd sales_engine_js
+```
+
+Install dependencies
+```sh
+npm install
+```
+
+Run whole test suite
+```sh
+npm test
+```
+
+Run individual tests
+```sh
+mocha test/<test_file>
+```
+
 ## Issues I ran into along the way
 
 <a name="disclaimer"></a>**DISCLAIMER:**
