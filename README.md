@@ -339,3 +339,80 @@ may argue doing this is bad practice, or should have a different name, etc. At
 this point in my learning career, finding these nuances and seeing _why_ they
 are used is a primary goal; I can always make things more practical down the
 road.
+
+## For the Future
+
+1. [Introduce ES6 syntax and new methods to the application](#es6)
+2. [Re-writing the application in a more functional programming manner](#functional)
+
+<a name="es6"></a>ES6 is the new JavaScript standard that introduced a whole
+slew of changes to the language. I won't go and list them all, but some major
+things include new ways to create functions
+
+```javascript
+// Arrow functions
+const add = (x, y) => {
+  return x + y
+}
+
+// Concise methods
+const MathUtils = {
+  add (x, y) {
+    return x + y
+  }
+}
+
+// Classes
+class Point {
+  constructor (x, y) {
+    this.x = x
+    this.y = y
+  }
+}
+```
+
+[source](https://medium.com/@ryanflorence/functions-without-function-bc356ed34a2f)
+
+New methods, such as
+[find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find),
+which would have been very useful for this application particularly, easier
+ways to concatenate strings with template strings, and a whole lot
+[more](https://github.com/lukehoban/es6features).
+
+Implementing these into SalesEngine would be a fun task that would help students
+new to ES6 (like myself) see the changes and understand why they were made.
+
+---
+
+<a name="functional"></a>Sales Engine as a project isn't really set up to be a
+"real" application, much less a JavaScript application. The whole point is to
+test new students on mimicking database relationships, and seeing how they deal
+with the hierarchy, the wiring up of files, the algorithms to parse the data,
+etc. With that said, I think it was an excellent way to learn Ruby, and turned
+out to be an excellent way to learn Prototypal Object-Oriented JavaScript as
+well.
+
+As with any code base, iterations or constraints could make things cleaner. Many
+in the JavaScript community would argue that the language is not meant to be
+Object-Oriented, and instead should be written in a functional manner.
+
+> _If you're creating constructor functions and inheriting from them, you haven't
+learned JavaScript....You're working in the phony version of JavaScript that only
+exists to dress the language up like Java....You're coding in this amazing,
+game-changing, seminal programming language and completely missing what makes it
+so cool and interesting._
+
+[Eric Elliot](https://medium.com/javascript-scene/the-two-pillars-of-javascript-ee6f3281e7f3)
+
+This is a new paradigm for people coming from Ruby. Functional programming is
+about composing mathematical functions and avoiding shared state and mutable
+data. Those are all pretty abstract to me right now, but the way I understand it
+is that there are no more constructors in which you instantiate new objects from
+which in turn have their own set of methods. It's about keeping side-effects to
+a minimum by knowing that if you put the same thing into a function, it should
+return the same thing.
+
+So that would be one thing to consider. _How could we re-create SalesEngine in a
+more functional way?_ As I mentioned above, this may not be the most ideal
+project to try that out with, but it's worth keeping in mind and doing more
+research on.
