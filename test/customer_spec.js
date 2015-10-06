@@ -40,4 +40,20 @@ describe('SalesEngine Customers', function() {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var customer = engine.customerRepository().find(999);
+
+    describe('#invoices', function () {
+      it('returns all of a customer\'s invoices', function () {
+        expect(customer.invoices().length).to.equal(7);
+      });
+
+      it('returns invoices belonging to the customer', function () {
+        customer.invoices().forEach(function (invoice) {
+          expect(invoice.customerId).to.equal(999);
+        });
+      });
+    });
+  });
 });
