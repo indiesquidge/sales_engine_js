@@ -23,7 +23,7 @@ describe('SalesEngine Invoice Items', function () {
       });
     });
 
-    describe.skip('.findByItemId', function () {
+    describe('.findByItemId', function () {
       it('can find a record', function () {
         var invoiceItem = engine.invoiceItemRepository().findByItemId(123);
 
