@@ -39,4 +39,16 @@ describe('SalesEngine Transactions', function () {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var transaction = engine.transactionRepository().find(1138);
+
+    describe('#invoice', function () {
+      it('exists', function () {
+        var invoiceCustomer = engine.customerRepository().find(192);
+
+        expect(transaction.invoice().customer().firstName).to.equal(invoiceCustomer.firstName);
+      });
+    });
+  });
 });
