@@ -57,4 +57,26 @@ describe('SalesEngine Items', function () {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var item = engine.itemRepository().findByName('Item Saepe Ipsum');
+
+    describe('#invioceItems', function () {
+      it('has the correct number of them', function () {
+        expect(item.invoiceItems().length).to.equal(8);
+      });
+
+      it('really owns them all', function () {
+        item.invoiceItems().forEach(function (invoiceItem) {
+          expect(invoiceItem.itemId).to.equal(item.id);
+        });
+      });
+    });
+
+    describe('#merchant', function () {
+      it('exists', function () {
+        expect(item.merchant().name).to.equal('Kilback Inc');
+      });
+    });
+  });
 });
