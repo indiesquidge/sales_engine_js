@@ -71,8 +71,8 @@ describe('SalesEngine Merchants', function() {
 
       it.skip('has a shipped invoice for a specific customer', function () {
         var invoice = merchant.invoices().filter(function (invoice) {
-          return invoice.customer.lastName === 'Block';
-        });
+          return invoice.customer().lastName === 'Block';
+        })[0];
 
         expect(invoice.status).to.equal('shipped');
       });

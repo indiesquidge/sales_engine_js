@@ -27,7 +27,7 @@ describe('SalesEngine Invoice Items', function () {
       it('can find a record', function () {
         var invoiceItem = engine.invoiceItemRepository().findByItemId(123);
 
-        expect(invoiceItem.item.name).to.equal('Item Doloribus Ducimus');
+        expect(invoiceItem.item().name).to.equal('Item Doloribus Ducimus');
       });
     });
 
