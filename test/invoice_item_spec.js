@@ -39,4 +39,20 @@ describe('SalesEngine Invoice Items', function () {
       });
     });
   });
+
+  describe('Relationships', function () {
+    var invoiceItem = engine.invoiceItemRepository().find(16934);
+
+    describe('#item', function () {
+      it('exists', function () {
+        expect(invoiceItem.item().name).to.equal('Item Cupiditate Magni');
+      });
+    });
+
+    describe('#invoice', function () {
+      it('exists', function () {
+        expect(invoiceItem.invoice().id).to.equal(3781);
+      });
+    });
+  });
 });

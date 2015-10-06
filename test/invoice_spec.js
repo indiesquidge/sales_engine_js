@@ -48,5 +48,44 @@ describe('SalesEngine Invoices', function () {
         expect(invoice.transactions().length).to.equal(1);
       });
     });
+
+    describe('#items', function () {
+      it('has the correct number of them', function () {
+        expect(invoice.items().length).to.equal(3);
+      });
+
+      it('has one with a specific name', function () {
+        expect(invoice.items().map(function (item) {
+          return item.name;
+        })).to.include('Item Accusamus Officia');
+      });
+    });
+
+    describe('#customer', function () {
+      it('exists', function () {
+        expect(invoice.customer().firstName).to.equal('Eric');
+        expect(invoice.customer().lastName).to.equal('Bergnaum');
+      });
+    });
+
+    describe('#merchant', function () {
+      it('exists', function () {
+        expect(invoice.merchant().name).to.equal('Rogahn LLC');
+      });
+    });
+
+    describe('#invoiceItems', function () {
+      it('has the correct number of them', function () {
+        expect(invoice.invoiceItems().length).to.equal(3);
+      });
+
+      it('has one for a specific item', function () {
+        var invoiceItemNames = invoice.invoiceItems().map(function (invoiceItem) {
+          return invoiceItem.item().name;
+        });
+
+        expect(invoiceItemNames).to.include('Item Accusamus Officia');
+      });
+    });
   });
 });
