@@ -320,7 +320,8 @@ MerchantRepository.prototype.createMerchants = function (file) {
 ```
 
 Here, we cannot simply just pass in `this` when we call `new Merchant()` because
-we are inside of a callback function that was passed to `map`. Instead, we must
+we are inside of a callback function that was passed to `map`, and that callback
+is one passing the arguments from a completely different scope. Instead, we must
 save the binding we want to a variable and use that.
 
 ```javascript
@@ -339,6 +340,29 @@ may argue doing this is bad practice, or should have a different name, etc. At
 this point in my learning career, finding these nuances and seeing _why_ they
 are used is a primary goal; I can always make things more practical down the
 road.
+
+**UPDATE**:
+
+So `var that = this;` is not the most intuitive thing, is rather ugly, and
+doesn't really make full use of JavaScript's function methods. Instead of saving
+the scope to a variable, we can use `bind()`.
+
+```javascript
+MerchantRepository.prototype.createMerchants = function (file) {
+  var merchantList = new Parser().parse(file);
+
+  this.all = merchantList.map(function (merchant) {
+    return new Merchant(merchant, this);
+  }.bind(this));
+};
+```
+
+The example above works because we used `bind(this)` to explicitly set the value
+of `this` on the callback function while we're still in the scope of
+`MerchantRepository`. When the callback is eventually called, it remembers what
+this is because we bound it to the function.
+
+[source of help for using bind](http://ow.ly/Tp2Hs)
 
 ## For the Future
 
